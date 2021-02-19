@@ -1,7 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://fullcycle.com.br/wp-content/themes/fullcycle-blog/application/img/logo-fullcycle.png"/></a>
-</p>
-
 ## Descrição
 
 Projeto Front-end para se começar com TypeScript de forma produtiva.
@@ -34,8 +30,6 @@ ficará por sua conta ter um carregamento de módulos funcionando no browser: AM
 Isto pode desestimular seu uso ou desincentivar quem está começando, pois organizar módulos e bibliotecas de terceiros não é simples.
 
 Este pacote é uma forma produtiva de se começar com TypeScript.
-
-Veja o vídeo no nosso canal do Youtube para entender mais detalhes: [https://www.youtube.com/watch?v=9qJT3t9syFM](https://www.youtube.com/watch?v=9qJT3t9syFM)
 
 ## Instalação
 
