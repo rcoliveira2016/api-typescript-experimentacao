@@ -1,9 +1,15 @@
 import Pege from "./pages/page";
 import axios from 'axios';
 
-interface Repositorio{
+interface RepositorioGitHub{
     full_name: string;
     html_url: string;
+}
+
+interface UserGitHub{
+    login: string;
+    avatar_url: string;
+    public_repos: number;
 }
 
 class PageSobre extends Pege{
@@ -12,20 +18,25 @@ class PageSobre extends Pege{
         super();            
     }
 
-    criarItem(menuItem:Repositorio):HTMLElement{
+    criarItem(menuItem:RepositorioGitHub):HTMLElement{
         let li  = document.createElement("li");
         let link = document.createElement("a");
         link.innerText = menuItem.full_name;
         link.href = menuItem.html_url;
+        link.setAttribute('target',"_blank")
         li.append(link);
         return li;
     }
 
-    montarConteudoHTML(): void {
-        this.obterConteudoHTML().innerHTML="<p>Usuario: rcoliveira2016<p>";
+    obterUserGitHub(){
+        let u = new URL(window.location.href);
+        return u.searchParams.get("user");
+    }
+
+    montarRepository(usuarioGitHub:string){
         const ul = document.createElement('ul');        
         ul.className = "lista-repositorio"
-        axios.get<Repositorio[]>('https://api.github.com/users/rcoliveira2016/repos')
+        axios.get<RepositorioGitHub[]>(`https://api.github.com/users/${usuarioGitHub}/repos`)
         .then(response => {
             response.data.forEach(item => {
                 ul.appendChild(this.criarItem(item));
@@ -33,6 +44,17 @@ class PageSobre extends Pege{
             this.obterConteudoHTML().appendChild(ul);
         });
 
+    }
+
+    montarConteudoHTML(): void {
+        const usuarioGitHub = this.obterUserGitHub();
+        axios.get<UserGitHub>(`https://api.github.com/users/${usuarioGitHub}`)
+        .then(response => {
+            this.obterConteudoHTML().insertAdjacentHTML('beforeend', `<p><strong>Usuario:</strong> ${response.data.login}<p>`);
+            this.obterConteudoHTML().insertAdjacentHTML('beforeend', `<p><strong>Repositorios:</strong> ${response.data.public_repos}<p>`);
+            this.obterConteudoHTML().insertAdjacentHTML('beforeend', `<img src="${response.data.avatar_url}" />`);
+            this.montarRepository(usuarioGitHub);
+        });                
     }
 }
 

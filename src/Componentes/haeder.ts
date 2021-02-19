@@ -32,7 +32,7 @@ export default class Herder {
 
         let itensMenu:MenuItem[] = [
             {nome:"Home",link:"index.html"},
-            {nome:"Sobre",link:"sobre.html"},
+            {nome:"Sobre",link:"sobre.html?user=rcoliveira2016"},
         ];
         itensMenu.forEach(item => {
             this.ulPrincipal.appendChild(this.criarItem(item));
