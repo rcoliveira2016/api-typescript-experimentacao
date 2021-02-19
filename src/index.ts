@@ -1,4 +1,5 @@
 import Pege from "./pages/page";
+import InformacaoUsuarioGitHub from "./Componentes/informacaoUsuarioGitHub";
 
 class PageIndex extends Pege{
 
@@ -7,7 +8,11 @@ class PageIndex extends Pege{
     }
 
     montarConteudoHTML(): void {
-        this.obterConteudoHTML().innerHTML="oi pessoal";
+        const usuarioGitHub = new InformacaoUsuarioGitHub();
+        
+        this.obterConteudoHTML()
+            .appendChild(usuarioGitHub.containner);
+        usuarioGitHub.buscarUsuario("microsoft");
     }
 }
 
